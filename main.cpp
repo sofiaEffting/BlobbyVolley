@@ -87,6 +87,16 @@ int main(int argc, char const *argv[])
         SDL_RenderDrawLine(renderer, 300, 200, 100, 200);
         SDL_RenderDrawLine(renderer, 100, 200, 100, 100);
 
+        SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
+
+        // Desenhe o contorno de um retângulo
+        SDL_Rect rectangle;
+        rectangle.x = 100;
+        rectangle.y = 210;
+        rectangle.w = 200;
+        rectangle.h = 100;
+        SDL_RenderDrawRect(renderer, &rectangle);
+
         // Atualize a tela
         SDL_RenderPresent(renderer);
 
