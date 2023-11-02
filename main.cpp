@@ -43,7 +43,7 @@ int main(int argc, char const *argv[])
     // Verifica se ocorreu um erro ao criar o renderer e se sim encerra o sdl
     if (!renderer) {
         printf("Erro ao criar o renderizador: %s\n", SDL_GetError());
-        SDL_DestroyWindow(window    );
+        SDL_DestroyWindow(window);
         SDL_Quit();
         return 1;
     }
@@ -82,7 +82,10 @@ int main(int argc, char const *argv[])
 
         // Desenhe a reta
         // SDL_RenderDrawLine(renderer, xInicio, yInicio, xFinal, yFinal);
-        SDL_RenderDrawLine(renderer, 100, 100, 300, 300);
+        SDL_RenderDrawLine(renderer, 100, 100, 300, 100);
+        SDL_RenderDrawLine(renderer, 300, 100, 300, 200);
+        SDL_RenderDrawLine(renderer, 300, 200, 100, 200);
+        SDL_RenderDrawLine(renderer, 100, 200, 100, 100);
 
         // Atualize a tela
         SDL_RenderPresent(renderer);
