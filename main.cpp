@@ -79,13 +79,10 @@ int main(int argc, char const *argv[])
         // Defina a cor de desenho (vermelho neste caso)
         // SDL_SetRenderDrawColor(renderer, r, g, b, alpha (255 aparece));
         SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-
+        /*
         // Desenhe a reta
         // SDL_RenderDrawLine(renderer, xInicio, yInicio, xFinal, yFinal);
         SDL_RenderDrawLine(renderer, 100, 100, 300, 100);
-        SDL_RenderDrawLine(renderer, 300, 100, 300, 200);
-        SDL_RenderDrawLine(renderer, 300, 200, 100, 200);
-        SDL_RenderDrawLine(renderer, 100, 200, 100, 100);
 
         SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
 
@@ -95,7 +92,26 @@ int main(int argc, char const *argv[])
         rectangle.y = 210;
         rectangle.w = 200;
         rectangle.h = 100;
-        SDL_RenderDrawRect(renderer, &rectangle);
+        SDL_RenderFillRect(renderer, &rectangle);*/
+
+        // Raio do círculo
+        int radius = 50;
+        // Centro do círculo
+        int centerX = 320;
+        int centerY = 240;
+
+        // Desenha o círculo com semiretas
+        for (int angle = 0; angle < 360; angle++) {
+            // conversão graus -> rad pq o sin e cos só aceita rad
+            double radian = angle * M_PI / 180.0;
+            // define as coord de cada ponto
+            int x = centerX + radius * std::cos(radian);
+            int y = centerY + radius * std::sin(radian);
+            // define as coord do último ponto
+            int lastX = centerX + radius * std::cos(radian - (M_PI/180));
+            int lastY = centerY + radius * std::sin(radian - (M_PI/180));
+            SDL_RenderDrawLine(renderer, lastX, lastY, x, y);
+    }
 
         // Atualize a tela
         SDL_RenderPresent(renderer);
