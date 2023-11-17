@@ -15,6 +15,8 @@ public:
     Window(const std::string &title, int width, int height);
     ~Window();
     SDL_Renderer* getRenderer() const;
+    int getWidth();
+    int getHeight();
 
 };
 

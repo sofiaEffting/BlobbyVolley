@@ -3,6 +3,9 @@
 Circle::Circle(int radius, int centerX, int centerY):
     radius(radius), centerX(centerX), centerY(centerY) {}
 
+Circle::Circle():
+    radius(0), centerX(0), centerY(0) {}
+
 void Circle::draw(SDL_Renderer *renderer) const {
     // Desenha o círculo com semiretas
     for (int angle = 0; angle < 360; angle++) {
@@ -16,4 +19,31 @@ void Circle::draw(SDL_Renderer *renderer) const {
         int lastY = centerY + radius * sin(radian - (M_PI/180));
         SDL_RenderDrawLine(renderer, lastX, lastY, x, y);
     }
+}
+void Circle::setCenterX(int x){
+    if (x < 0)
+    {
+        return;
+    }
+    centerX = x;
+}
+void Circle::setCenterY(int y){
+    if (y < 0)
+    {
+        return;
+    }
+    
+    centerY = y;
+}
+void Circle::setRadius(int radius){
+    if (radius < 5)
+    {
+        return;
+    }
+    
+    Circle::radius = radius;
+}
+void Circle::translate(int x, int y){
+    centerX += x;
+    centerY += y;
 }

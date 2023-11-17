@@ -17,13 +17,26 @@ int main(int argc, char const *argv[])
 
     // criar janela (titulo, posicaoQueAJanelaVaiAbrirX, posicaoQueAJanelaVaiAbrirY,
     // larguraJanela, alturaJanela, flags)
-    Window w = Window("Jogo", 400, 400);
+    Window w = Window("Jogo", 1000, 600);
     SDL_Renderer* renderer = w.getRenderer();
 
     // jogo rodando (janela aberta)
     bool running = true;
 
-    Rectangle rect = Rectangle(100, 200, 200, 100);
+    Rectangle net = Rectangle(490, 300, 20, 300);
+
+    // Posição inicial players
+    Circle player1;
+    Circle player2;
+    int radius = 40;
+    player1.setRadius(radius);
+    player2.setRadius(radius);
+    player1.setCenterX((w.getWidth() - net.getWidth()) / 4); 
+    player1.setCenterY(w.getHeight() - radius);
+
+    player2.setCenterX(w.getWidth() - ((w.getWidth() - net.getWidth()) / 4));
+    player2.setCenterY(w.getHeight()-radius);
+
 
     // loop principal que mantém a janela aberta e processa eventos
     // a var running é usada para controlar quando a janela deve ser fechada
@@ -36,9 +49,26 @@ int main(int argc, char const *argv[])
         {
             // verifica se a janela é pra ser fechada
             if (event.type == SDL_QUIT)
-            { 
                 running = false;
-            }
+            if(event.type == SDL_KEYDOWN)
+                {       
+                    // if's to select the action to be executed
+                    if (event.key.keysym.sym == SDLK_LEFT)
+                        player2.translate(-5, 0);
+                    if (event.key.keysym.sym == SDLK_RIGHT)
+                        player2.translate(5, 0);
+                    if (event.key.keysym.sym == SDLK_UP)
+                        player2.translate(0, -5);
+                    if (event.key.keysym.sym == SDLK_w)
+                        player1.translate(0, -5);
+                    if (event.key.keysym.sym == SDLK_a)
+                        player1.translate(-5, 0);
+                    if (event.key.keysym.sym == SDLK_d)
+                        player1.translate(5, 0);
+                    // pressing q will exit the main loop
+                    if (event.key.keysym.sym == SDLK_q)
+                        running = false;
+                }
             
         }
 
@@ -54,8 +84,12 @@ int main(int argc, char const *argv[])
         // Defina a cor de desenho (vermelho neste caso)
         // SDL_SetRenderDrawColor(renderer, r, g, b, alpha (255 aparece));
         SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-        rect.draw(renderer);
-        
+        net.draw(renderer);
+
+        SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
+        player1.draw(renderer);
+        player2.draw(renderer);
+
         // Atualize a tela
         SDL_RenderPresent(renderer);
 

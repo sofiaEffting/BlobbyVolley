@@ -11,3 +11,11 @@ void Rectangle::draw(SDL_Renderer *renderer) const {
     rectangle.h = height;
     SDL_RenderFillRect(renderer, &rectangle);
 }
+
+int Rectangle::getHeight() {
+    return height;
+}
+
+int Rectangle::getWidth() {
+    return width;
+}

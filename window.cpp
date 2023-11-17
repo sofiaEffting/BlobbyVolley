@@ -26,7 +26,7 @@ title(title), width(width), height(height), window(nullptr), renderer(nullptr) {
         printf("Erro ao criar o renderizador: %s\n", SDL_GetError());
         SDL_Quit();
         SDL_DestroyWindow(window);
-        return;
+        exit(1);
     }
 }
 
@@ -41,4 +41,12 @@ Window::~Window() {
 
 SDL_Renderer* Window::getRenderer() const {
     return renderer;
+}
+
+int Window::getHeight() {
+    return height;
+}
+
+int Window::getWidth() {
+    return width;
 }

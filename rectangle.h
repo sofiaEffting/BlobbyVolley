@@ -7,6 +7,8 @@ class Rectangle {
 public:
     Rectangle(int x, int y, int width, int height);
     void draw(SDL_Renderer *renderer) const;
+    int getWidth();
+    int getHeight();
 
 private:
     int x;
