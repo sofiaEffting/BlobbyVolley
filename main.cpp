@@ -1,15 +1,10 @@
 // IMPORTS
 #include <iostream>
-// inclusão sdl 
-#include <SDL2/SDL.h>
-using namespace std;
+//inclusão classes
+#include "circle.h"
+#include "rectangle.h"
+#include "window.h"
 
-// tamanho da janela
-#define WIDTH 400
-#define HEIGHT 400
-
-// programa rodando (janela aberta)
-bool running = true;
 
 int main(int argc, char const *argv[])
 {
@@ -22,40 +17,17 @@ int main(int argc, char const *argv[])
 
     // criar janela (titulo, posicaoQueAJanelaVaiAbrirX, posicaoQueAJanelaVaiAbrirY,
     // larguraJanela, alturaJanela, flags)
-    SDL_Window* window = SDL_CreateWindow("Jogo", 
-    SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, // SDL_WINDOWPOS_UNDEFINED vai centralizar
-    WIDTH, HEIGHT, 
-    SDL_WINDOW_SHOWN);// SDL_WINDOW_SHOWN flag para exibir imediatamente
+    Window w = Window("Jogo", 400, 400);
+    SDL_Renderer* renderer = w.getRenderer();
 
-    // Verifica se ocorreu um erro ao criar a janela e se sim encerra o sdl
-    if(!window) {
-        printf("Erro ao criar janela: %s\n", SDL_GetError());
-        SDL_Quit();
-        return 1;
-    }
+    // jogo rodando (janela aberta)
+    bool running = true;
 
-    // Cria renderizador para a janela
-    // SDL_Renderer* SDL_CreateRenderer(SDL_Window* window, int index, Uint32 flags);
-    SDL_Renderer* renderer = SDL_CreateRenderer(window, //ponteiro para a janela, este é o alvo da renderização. 
-    -1, //Índice especifica o driver renderização, caso haja vários disponíveis. -1 = usar o primeiro driver compatível encontrado. -1 = escolha segura.    
-    SDL_RENDERER_ACCELERATED); //tags que controlam o render. SDL_RENDERER_ACCELERATED: Use aceleração por hardware, se disponível.
-
-    // Verifica se ocorreu um erro ao criar o renderer e se sim encerra o sdl
-    if (!renderer) {
-        printf("Erro ao criar o renderizador: %s\n", SDL_GetError());
-        SDL_DestroyWindow(window);
-        SDL_Quit();
-        return 1;
-    }
-    
+    Rectangle rect = Rectangle(100, 200, 200, 100);
 
     // loop principal que mantém a janela aberta e processa eventos
     // a var running é usada para controlar quando a janela deve ser fechada
     while(running) {
-
-        /*
-            LÓGICA DO JOGO VAI AQUI
-        */
 
         // define um evento
         SDL_Event event;
@@ -64,12 +36,15 @@ int main(int argc, char const *argv[])
         {
             // verifica se a janela é pra ser fechada
             if (event.type == SDL_QUIT)
-            {   
+            { 
                 running = false;
             }
             
         }
 
+        /*
+            LÓGICA DO JOGO VAI AQUI
+        */ 
 
         //Limpe a tela com a cor desejada, por exemplo, preto
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
@@ -79,48 +54,13 @@ int main(int argc, char const *argv[])
         // Defina a cor de desenho (vermelho neste caso)
         // SDL_SetRenderDrawColor(renderer, r, g, b, alpha (255 aparece));
         SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-        /*
-        // Desenhe a reta
-        // SDL_RenderDrawLine(renderer, xInicio, yInicio, xFinal, yFinal);
-        SDL_RenderDrawLine(renderer, 100, 100, 300, 100);
-
-        SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
-
-        // Desenhe o contorno de um retângulo
-        SDL_Rect rectangle;
-        rectangle.x = 100;
-        rectangle.y = 210;
-        rectangle.w = 200;
-        rectangle.h = 100;
-        SDL_RenderFillRect(renderer, &rectangle);*/
-
-        // Raio do círculo
-        int radius = 50;
-        // Centro do círculo
-        int centerX = 320;
-        int centerY = 240;
-
-        // Desenha o círculo com semiretas
-        for (int angle = 0; angle < 360; angle++) {
-            // conversão graus -> rad pq o sin e cos só aceita rad
-            double radian = angle * M_PI / 180.0;
-            // define as coord de cada ponto
-            int x = centerX + radius * std::cos(radian);
-            int y = centerY + radius * std::sin(radian);
-            // define as coord do último ponto
-            int lastX = centerX + radius * std::cos(radian - (M_PI/180));
-            int lastY = centerY + radius * std::sin(radian - (M_PI/180));
-            SDL_RenderDrawLine(renderer, lastX, lastY, x, y);
-    }
-
+        rect.draw(renderer);
+        
         // Atualize a tela
         SDL_RenderPresent(renderer);
 
     }
-
-    // liberação de recursos
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
+    
     SDL_Quit();
 
     //retorno padrão da main, sem erros
