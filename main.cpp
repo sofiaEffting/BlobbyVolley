@@ -4,6 +4,7 @@
 #include "circle.h"
 #include "rectangle.h"
 #include "window.h"
+#include "player.h"
 
 
 int main(int argc, char const *argv[])
@@ -27,8 +28,8 @@ int main(int argc, char const *argv[])
     Rectangle entireNetSpace = Rectangle(490, 0, 20, 600);
 
     // Posição inicial players
-    Circle player1;
-    Circle player2;
+    Player player1;
+    Player player2;
     int radius = 40;
     player1.setRadius(radius);
     player2.setRadius(radius);
@@ -54,30 +55,27 @@ int main(int argc, char const *argv[])
             if(event.type == SDL_KEYDOWN)
                 {       
                     // if's to select the action to be executed
-                    if (!player2.checkCircleCollision(player1))
-                    {
-                        if (event.key.keysym.sym == SDLK_LEFT)
-                            if (!player2.checkRectCollision(entireNetSpace))
-                            {
-                                player2.translate(-5, 0);
-                            }
-                        if (event.key.keysym.sym == SDLK_RIGHT)
-                            player2.translate(5, 0);
-                        if (event.key.keysym.sym == SDLK_UP)
-                            player2.translate(0, -5);
-                        if (event.key.keysym.sym == SDLK_DOWN)
-                            player2.translate(0, 5);
-                        if (event.key.keysym.sym == SDLK_w)
-                            player1.translate(0, -5);
-                        if (event.key.keysym.sym == SDLK_a)
-                            player1.translate(-5, 0);
-                        if (event.key.keysym.sym == SDLK_s)
-                            player1.translate(0, 5);
-                        if (event.key.keysym.sym == SDLK_d)
-                            if (!player1.checkRectCollision(entireNetSpace))
-                            {
-                                player1.translate(5, 0);
-                            }
+                    if (event.key.keysym.sym == SDLK_LEFT) {
+                        if (!player2.checkRectCollision(entireNetSpace))
+                        {
+                            player2.translate(-5, 0);
+                        }
+                    }
+                    if (event.key.keysym.sym == SDLK_RIGHT)
+                        player2.translate(5, 0);
+                    if (event.key.keysym.sym == SDLK_UP)
+                        player2.translate(0, -5);
+                    if (event.key.keysym.sym == SDLK_DOWN)
+                        player2.translate(0, 5);
+                    if (event.key.keysym.sym == SDLK_w)
+                        player1.translate(0, -5);
+                    if (event.key.keysym.sym == SDLK_a)
+                        player1.translate(-5, 0);
+                    if (event.key.keysym.sym == SDLK_s)
+                        player1.translate(0, 5);
+                    if (event.key.keysym.sym == SDLK_d) {
+                        if (!player1.checkRectCollision(entireNetSpace))
+                            player1.translate(5, 0);
                     }
                     // pressing q will exit the main loop
                     if (event.key.keysym.sym == SDLK_q)
