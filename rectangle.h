@@ -9,6 +9,8 @@ public:
     void draw(SDL_Renderer *renderer) const;
     int getWidth();
     int getHeight();
+    int getX();
+    int getY();
 
 private:
     int x;

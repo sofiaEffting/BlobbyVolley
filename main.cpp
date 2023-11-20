@@ -24,6 +24,7 @@ int main(int argc, char const *argv[])
     bool running = true;
 
     Rectangle net = Rectangle(490, 300, 20, 300);
+    Rectangle entireNetSpace = Rectangle(490, 0, 20, 600);
 
     // Posição inicial players
     Circle player1;
@@ -53,18 +54,31 @@ int main(int argc, char const *argv[])
             if(event.type == SDL_KEYDOWN)
                 {       
                     // if's to select the action to be executed
-                    if (event.key.keysym.sym == SDLK_LEFT)
-                        player2.translate(-5, 0);
-                    if (event.key.keysym.sym == SDLK_RIGHT)
-                        player2.translate(5, 0);
-                    if (event.key.keysym.sym == SDLK_UP)
-                        player2.translate(0, -5);
-                    if (event.key.keysym.sym == SDLK_w)
-                        player1.translate(0, -5);
-                    if (event.key.keysym.sym == SDLK_a)
-                        player1.translate(-5, 0);
-                    if (event.key.keysym.sym == SDLK_d)
-                        player1.translate(5, 0);
+                    if (!player2.checkCircleCollision(player1))
+                    {
+                        if (event.key.keysym.sym == SDLK_LEFT)
+                            if (!player2.checkRectCollision(entireNetSpace))
+                            {
+                                player2.translate(-5, 0);
+                            }
+                        if (event.key.keysym.sym == SDLK_RIGHT)
+                            player2.translate(5, 0);
+                        if (event.key.keysym.sym == SDLK_UP)
+                            player2.translate(0, -5);
+                        if (event.key.keysym.sym == SDLK_DOWN)
+                            player2.translate(0, 5);
+                        if (event.key.keysym.sym == SDLK_w)
+                            player1.translate(0, -5);
+                        if (event.key.keysym.sym == SDLK_a)
+                            player1.translate(-5, 0);
+                        if (event.key.keysym.sym == SDLK_s)
+                            player1.translate(0, 5);
+                        if (event.key.keysym.sym == SDLK_d)
+                            if (!player1.checkRectCollision(entireNetSpace))
+                            {
+                                player1.translate(5, 0);
+                            }
+                    }
                     // pressing q will exit the main loop
                     if (event.key.keysym.sym == SDLK_q)
                         running = false;
@@ -80,6 +94,7 @@ int main(int argc, char const *argv[])
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         // Limpe a tela (opcional)
         SDL_RenderClear(renderer);
+        entireNetSpace.draw(renderer);
 
         // Defina a cor de desenho (vermelho neste caso)
         // SDL_SetRenderDrawColor(renderer, r, g, b, alpha (255 aparece));

@@ -19,3 +19,11 @@ int Rectangle::getHeight() {
 int Rectangle::getWidth() {
     return width;
 }
+
+int Rectangle::getX() {
+    return x;
+}
+
+int Rectangle::getY() {
+    return y;
+}

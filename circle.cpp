@@ -47,3 +47,18 @@ void Circle::translate(int x, int y){
     centerX += x;
     centerY += y;
 }
+bool Circle::checkCircleCollision(Circle c2){
+    float dist_centers = sqrt(pow(centerX - c2.centerX, 2) + pow(centerY - c2.centerY, 2));
+    return dist_centers <= (radius + c2.radius);
+}
+
+bool Circle::checkRectCollision(Rectangle rect){
+    // Encontrar a distância mais proxima do circulo ao retangulo
+    float closestX = std::max(rect.getX(), std::min(centerX, rect.getX() + rect.getWidth()));
+    float closestY = std::max(rect.getY(), std::min(centerY, rect.getY() + rect.getHeight()));
+
+    // Calcular a dist entre o ponto mais prox e o centro do circulo
+    float dist = sqrt(pow(centerX - closestX, 2) + pow(centerY - closestY, 2));
+
+    return dist <= radius;
+}

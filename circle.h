@@ -2,6 +2,7 @@
 #define CIRCLE_H
 
 #include <SDL2/SDL.h>
+#include "rectangle.h"
 #include <cmath> 
 
 class Circle {
@@ -13,6 +14,8 @@ public:
     void setCenterX(int x);
     void setCenterY(int y);
     void translate(int x, int y);
+    bool checkRectCollision(Rectangle rect);
+    bool checkCircleCollision(Circle c2);
 
 private:
     int radius;
