@@ -22,31 +22,28 @@ void Circle::draw(SDL_Renderer *renderer) const {
 }
 void Circle::setCenterX(int x){
     if (x < 0)
-    {
         return;
-    }
     centerX = x;
 }
 void Circle::setCenterY(int y){
     if (y < 0)
-    {
         return;
-    }
-    
     centerY = y;
 }
 void Circle::setRadius(int radius){
-    if (radius < 5)
-    {
+    if (radius < 0)
         return;
-    }
-    
     Circle::radius = radius;
 }
-void Circle::translate(int x, int y){
-    centerX += x;
-    centerY += y;
+void Circle::translate(int x, int y, int window_height, int window_width){
+    int moveX = centerX + x;
+    int moveY = centerY + y;
+    if ((moveX - radius) >= 0 and (moveX + radius) <= window_width) 
+        centerX += x;
+    if ((moveY - radius) >= 0 and (moveY + radius) <= window_height) 
+        centerY += y;
 }
+
 bool Circle::checkCircleCollision(Circle c2){
     float dist_centers = sqrt(pow(centerX - c2.centerX, 2) + pow(centerY - c2.centerY, 2));
     return dist_centers <= (radius + c2.radius);

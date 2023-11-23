@@ -37,7 +37,7 @@ int main(int argc, char const *argv[])
     player1.setCenterY(w.getHeight() - radius);
 
     player2.setCenterX(w.getWidth() - ((w.getWidth() - net.getWidth()) / 4));
-    player2.setCenterY(w.getHeight()-radius);
+    player2.setCenterY(w.getHeight()- radius);
 
 
     // loop principal que mantém a janela aberta e processa eventos
@@ -57,25 +57,23 @@ int main(int argc, char const *argv[])
                     // if's to select the action to be executed
                     if (event.key.keysym.sym == SDLK_LEFT) {
                         if (!player2.checkRectCollision(entireNetSpace))
-                        {
-                            player2.translate(-5, 0);
-                        }
+                            player2.translate(-5, 0, w.getHeight(), w.getWidth());
                     }
                     if (event.key.keysym.sym == SDLK_RIGHT)
-                        player2.translate(5, 0);
+                        player2.translate(5, 0, w.getHeight(), w.getWidth());
                     if (event.key.keysym.sym == SDLK_UP)
-                        player2.translate(0, -5);
+                        player2.translate(0, -5, w.getHeight(), w.getWidth());
                     if (event.key.keysym.sym == SDLK_DOWN)
-                        player2.translate(0, 5);
+                        player2.translate(0, 5, w.getHeight(), w.getWidth());
                     if (event.key.keysym.sym == SDLK_w)
-                        player1.translate(0, -5);
+                        player1.translate(0, -5, w.getHeight(), w.getWidth());
                     if (event.key.keysym.sym == SDLK_a)
-                        player1.translate(-5, 0);
+                        player1.translate(-5, 0, w.getHeight(), w.getWidth());
                     if (event.key.keysym.sym == SDLK_s)
-                        player1.translate(0, 5);
+                        player1.translate(0, 5, w.getHeight(), w.getWidth());
                     if (event.key.keysym.sym == SDLK_d) {
                         if (!player1.checkRectCollision(entireNetSpace))
-                            player1.translate(5, 0);
+                            player1.translate(5, 0, w.getHeight(), w.getWidth());
                     }
                     // pressing q will exit the main loop
                     if (event.key.keysym.sym == SDLK_q)
