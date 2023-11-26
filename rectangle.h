@@ -5,18 +5,18 @@
 
 class Rectangle {
 public:
-    Rectangle(int x, int y, int width, int height);
+    Rectangle(double x, double y, double width, double height);
     void draw(SDL_Renderer *renderer) const;
-    int getWidth();
-    int getHeight();
-    int getX();
-    int getY();
+    double getWidth();
+    double getHeight();
+    double getX();
+    double getY();
 
 private:
-    int x;
-    int y;
-    int width;
-    int height;
+    double x;
+    double y;
+    double width;
+    double height;
 
 };
 

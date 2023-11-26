@@ -1,6 +1,6 @@
 #include "rectangle.h"
 
-Rectangle::Rectangle(int x, int y, int width, int height): 
+Rectangle::Rectangle(double x, double y, double width, double height): 
     x(x), y(y), width(width), height(height) {}
 
 void Rectangle::draw(SDL_Renderer *renderer) const {
@@ -12,18 +12,18 @@ void Rectangle::draw(SDL_Renderer *renderer) const {
     SDL_RenderFillRect(renderer, &rectangle);
 }
 
-int Rectangle::getHeight() {
+double Rectangle::getHeight() {
     return height;
 }
 
-int Rectangle::getWidth() {
+double Rectangle::getWidth() {
     return width;
 }
 
-int Rectangle::getX() {
+double Rectangle::getX() {
     return x;
 }
 
-int Rectangle::getY() {
+double Rectangle::getY() {
     return y;
 }

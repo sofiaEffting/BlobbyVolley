@@ -3,25 +3,31 @@
 
 #include <SDL2/SDL.h>
 #include "rectangle.h"
-#include "window.h"
 #include <cmath> 
 
 class Circle {
 public:
-    Circle(int radius, int centerX, int centerY);
+    Circle(double radius, double centerX, double centerY, double window_height, double window_width);
     Circle();
     void draw(SDL_Renderer *renderer) const;
-    void setRadius(int radius);
-    void setCenterX(int x);
-    void setCenterY(int y);
-    void translate(int x, int y, int window_width, int window_height);
+    void setRadius(double radius);
+    void setCenterX(double x);
+    void setCenterY(double y);
+    double getCenterX();
+    double getCenterY();
+    double getRadius();
+    void translate(double x, double y);
     bool checkRectCollision(Rectangle rect);
     bool checkCircleCollision(Circle c2);
+    double getWindowHeight();
+    double getWindowWidth();
 
 private:
-    int radius;
-    int centerX;
-    int centerY;
+    double radius;
+    double centerX;
+    double centerY;
+    double window_height;
+    double window_width;
 };
 
 #endif

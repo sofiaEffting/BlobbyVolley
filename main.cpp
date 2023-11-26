@@ -5,6 +5,8 @@
 #include "rectangle.h"
 #include "window.h"
 #include "player.h"
+#include "ball.h"
+#include "vector.h"
 
 
 int main(int argc, char const *argv[])
@@ -18,27 +20,21 @@ int main(int argc, char const *argv[])
 
     // criar janela (titulo, posicaoQueAJanelaVaiAbrirX, posicaoQueAJanelaVaiAbrirY,
     // larguraJanela, alturaJanela, flags)
-    Window w = Window("Jogo", 1000, 600);
+    Window w = Window("Jogo", 1000.0, 600.0);
     SDL_Renderer* renderer = w.getRenderer();
+    double w_h = w.getHeight();
+    double w_w = w.getWidth();
 
     // jogo rodando (janela aberta)
     bool running = true;
 
-    Rectangle net = Rectangle(490, 300, 20, 300);
-    Rectangle entireNetSpace = Rectangle(490, 0, 20, 600);
+    Rectangle net = Rectangle(490.0, 300.0, 20.0, 300.0);
+    Rectangle entireNetSpace = Rectangle(490.0, 0.0, 20.0, 600.0);
 
     // Posição inicial players
-    Player player1;
-    Player player2;
-    int radius = 40;
-    player1.setRadius(radius);
-    player2.setRadius(radius);
-    player1.setCenterX((w.getWidth() - net.getWidth()) / 4); 
-    player1.setCenterY(w.getHeight() - radius);
-
-    player2.setCenterX(w.getWidth() - ((w.getWidth() - net.getWidth()) / 4));
-    player2.setCenterY(w.getHeight()- radius);
-
+    int radius = 40.0;
+    Player player1(((w_w - net.getWidth()) / 4), (w_h - radius), radius, "Player 1", w_h, w_w);
+    Player player2(w_w - ((w_w - net.getWidth()) / 4), w_h- radius, radius, "Player 2", w_h, w_w);
 
     // loop principal que mantém a janela aberta e processa eventos
     // a var running é usada para controlar quando a janela deve ser fechada
@@ -57,35 +53,37 @@ int main(int argc, char const *argv[])
                     // if's to select the action to be executed
                     if (event.key.keysym.sym == SDLK_LEFT) {
                         if (!player2.checkRectCollision(entireNetSpace))
-                            player2.translate(-5, 0, w.getHeight(), w.getWidth());
+                            player2.translate(-5, 0.0);
                     }
                     if (event.key.keysym.sym == SDLK_RIGHT)
-                        player2.translate(5, 0, w.getHeight(), w.getWidth());
+                        player2.translate(5.0, 0.0);
                     if (event.key.keysym.sym == SDLK_UP)
-                        player2.translate(0, -5, w.getHeight(), w.getWidth());
-                    if (event.key.keysym.sym == SDLK_DOWN)
-                        player2.translate(0, 5, w.getHeight(), w.getWidth());
+                        player2.jump();
+                        
+                    /*if (event.key.keysym.sym == SDLK_DOWN)
+                        player2.translate(0.0, 5.0);*/
                     if (event.key.keysym.sym == SDLK_w)
-                        player1.translate(0, -5, w.getHeight(), w.getWidth());
+                        player1.jump();
                     if (event.key.keysym.sym == SDLK_a)
-                        player1.translate(-5, 0, w.getHeight(), w.getWidth());
-                    if (event.key.keysym.sym == SDLK_s)
-                        player1.translate(0, 5, w.getHeight(), w.getWidth());
+                        player1.translate(-5.0, 0.0);
+                    /*if (event.key.keysym.sym == SDLK_s)
+                        player1.translate(0.0, 5.0);*/
                     if (event.key.keysym.sym == SDLK_d) {
                         if (!player1.checkRectCollision(entireNetSpace))
-                            player1.translate(5, 0, w.getHeight(), w.getWidth());
+                            player1.translate(5.0, 0.0);
                     }
                     // pressing q will exit the main loop
                     if (event.key.keysym.sym == SDLK_q)
                         running = false;
                 }
-            
+
         }
 
         /*
             LÓGICA DO JOGO VAI AQUI
         */ 
-
+        std::cout << std::boolalpha << player1.getJumping() << std::endl;
+    
         //Limpe a tela com a cor desejada, por exemplo, preto
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         // Limpe a tela (opcional)
@@ -101,9 +99,19 @@ int main(int argc, char const *argv[])
         player1.draw(renderer);
         player2.draw(renderer);
 
+        /*if (player1.getOnAir())
+        {
+            player1.fall(w);
+        }
+        if (player2.getOnAir())
+        {
+            player2.fall(w);
+        }*/
+        
+
         // Atualize a tela
         SDL_RenderPresent(renderer);
-
+        SDL_Delay(16); 
     }
     
     SDL_Quit();

@@ -8,8 +8,8 @@ EXECUTABLES = main # oq vai ser chamado quando chamar só o make
 #    comandos a serem executados para compilar o código
 all: $(EXECUTABLES)
 
-main: main.cpp circle.cpp rectangle.cpp window.cpp player.cpp
-	$(CXX) $(CXXFLAGS) -o main.o main.cpp circle.cpp rectangle.cpp window.cpp player.cpp $(LIBS)
+main: main.cpp circle.cpp rectangle.cpp window.cpp player.cpp vector.cpp ball.cpp
+	$(CXX) $(CXXFLAGS) -o main.o main.cpp circle.cpp rectangle.cpp window.cpp player.cpp vector.cpp ball.cpp $(LIBS)
 
 # remove o arquivo executável gerado
 clean:

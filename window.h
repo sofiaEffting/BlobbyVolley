@@ -7,16 +7,16 @@
 class Window {
 private:
     std::string title;
-    int width;
-    int height;
+    double width;
+    double height;
     SDL_Window *window;
     SDL_Renderer *renderer;
 public:
-    Window(const std::string &title, int width, int height);
+    Window(const std::string &title, double width, double height);
     ~Window();
     SDL_Renderer* getRenderer() const;
-    int getWidth();
-    int getHeight();
+    double getWidth() const;
+    double getHeight() const;
 
 };
 

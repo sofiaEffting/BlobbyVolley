@@ -1,6 +1,6 @@
 #include "window.h"
 
-Window::Window(const std::string &title, int width, int height): 
+Window::Window(const std::string &title, double width, double height): 
 title(title), width(width), height(height), window(nullptr), renderer(nullptr) {
     // criar janela (titulo, posicaoQueAJanelaVaiAbrirX, posicaoQueAJanelaVaiAbrirY,
     // larguraJanela, alturaJanela, flags)
@@ -43,10 +43,10 @@ SDL_Renderer* Window::getRenderer() const {
     return renderer;
 }
 
-int Window::getHeight() {
+double Window::getHeight() const {
     return height;
 }
 
-int Window::getWidth() {
+double Window::getWidth() const {
     return width;
 }
