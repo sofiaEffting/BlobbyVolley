@@ -30,3 +30,16 @@
         return os;
     }
     */
+    void Vector::normalize() {
+        double mag = calcMagnitude();
+        x /= mag;
+        y /= mag;
+    }
+
+    void Vector::setX(double x) {
+        Vector::x = x;
+    }
+
+    void Vector::setY(double y) {
+        Vector::y = y;
+    }

@@ -8,7 +8,9 @@ class Ball: public Circle{
 private:
     bool inicialPosition; // left - t; right - false
 public:
-    Ball(double centerX, double centerY, double radius, double windowHeight, double windowWidth);
+    Ball(Vector coord, double radius, double windowHeight, double windowWidth);
+    void setInicialPosition(bool position);
+    bool getInicialPosition();
 };
 
 

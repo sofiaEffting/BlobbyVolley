@@ -28,13 +28,21 @@ int main(int argc, char const *argv[])
     // jogo rodando (janela aberta)
     bool running = true;
 
+    // rede
     Rectangle net = Rectangle(490.0, 300.0, 20.0, 300.0);
     Rectangle entireNetSpace = Rectangle(490.0, 0.0, 20.0, 600.0);
 
+
     // Posição inicial players
-    int radius = 40.0;
-    Player player1(((w_w - net.getWidth()) / 4), (w_h - radius), radius, "Player 1", w_h, w_w);
-    Player player2(w_w - ((w_w - net.getWidth()) / 4), w_h- radius, radius, "Player 2", w_h, w_w);
+    double radius = 50.0;
+    Vector inicialPositionP1 = Vector(((w_w - net.getWidth()) / 4), w_h - radius);
+    Player player1(inicialPositionP1, radius, "Player 1", w_h, w_w);
+    Vector inicialPositionP2 = Vector(w_w - ((w_w - net.getWidth()) / 4), w_h- radius);
+    Player player2(inicialPositionP2, radius, "Player 2", w_h, w_w);
+
+    // bola
+    Vector inicialPositionBall = Vector((w_w - net.getWidth()) / 4, w_h - radius*2 - 200);
+    Ball ball = Ball(inicialPositionBall, 30.0, w_h, w_w);
 
     // loop principal que mantém a janela aberta e processa eventos
     // a var running é usada para controlar quando a janela deve ser fechada
@@ -78,16 +86,12 @@ int main(int argc, char const *argv[])
                 }
 
         }
-
-        /*
-            LÓGICA DO JOGO VAI AQUI
-        */ 
-        std::cout << std::boolalpha << player1.getJumping() << std::endl;
     
-        //Limpe a tela com a cor desejada, por exemplo, preto
+        // Limpe a tela com a cor desejada, por exemplo, preto
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         // Limpe a tela (opcional)
         SDL_RenderClear(renderer);
+
         entireNetSpace.draw(renderer);
 
         // Defina a cor de desenho (vermelho neste caso)
@@ -95,19 +99,14 @@ int main(int argc, char const *argv[])
         SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
         net.draw(renderer);
 
+        SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
+        ball.draw(renderer);   
+
+        std::cout <<  "antes do draw" << player1.getCenterX() << std::endl;
         SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
         player1.draw(renderer);
         player2.draw(renderer);
-
-        /*if (player1.getOnAir())
-        {
-            player1.fall(w);
-        }
-        if (player2.getOnAir())
-        {
-            player2.fall(w);
-        }*/
-        
+        std::cout <<  "depois do draw" << player1.getCenterX() << std::endl;
 
         // Atualize a tela
         SDL_RenderPresent(renderer);

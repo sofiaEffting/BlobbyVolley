@@ -8,7 +8,7 @@
 
 class Player: public Circle {
 public:
-    Player(int centerX, int centerY, int radius, const std::string &name, double window_height, double window_width);
+    Player(Vector coord, int radius, const std::string &name, double window_height, double window_width);
     Player();
     std::string getName();
     int getPoints();
@@ -23,7 +23,7 @@ private:
     int points;
     std::string name;
     bool jumping;
-    int velocity;
+    double velocity;
 
 };
 
