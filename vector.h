@@ -13,8 +13,7 @@ public:
     Vector(double x, double y);
     double getX() const;
     double getY() const;
-    void setX(double x);
-    void setY(double y);
+    void setX(double x), setY(double y);
     // tamanho do vetor
     double calcMagnitude() const;
     // normaliza o vetor - magnitude = 1

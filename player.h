@@ -18,6 +18,7 @@ public:
     void jump();
     void updateVelocity();
     void draw(SDL_Renderer *renderer);
+    double getVelocity();
 
 private:
     int points;

@@ -16,14 +16,15 @@ public:
     void setCoord(double x, double y);
     void setCenterY(double y);
     void setCenterX(double x);
+    Vector getCoord() const;
     double getCenterX() const;
     double getCenterY() const;
     double getRadius() const;
+    double getWindowHeight() const;
+    double getWindowWidth() const;
     void translate(double x, double y);
     bool checkRectCollision(Rectangle rect);
     bool checkCircleCollision(Circle c2);
-    double getWindowHeight();
-    double getWindowWidth();
     void handleCollision(Circle &c2);
 
 private:

@@ -7,10 +7,12 @@
 class Ball: public Circle{
 private:
     bool inicialPosition; // left - t; right - false
+
 public:
-    Ball(Vector coord, double radius, double windowHeight, double windowWidth);
+    Ball(bool inicialPosition, double radius, double windowHeight, double windowWidth);
     void setInicialPosition(bool position);
     bool getInicialPosition();
+    void setCoord();
 };
 
 

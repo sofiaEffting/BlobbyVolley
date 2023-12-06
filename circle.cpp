@@ -20,31 +20,23 @@ void Circle::draw(SDL_Renderer *renderer) const {
         SDL_RenderDrawLine(renderer, lastX, lastY, x, y);
     }
 }
-void Circle::setCoord(Vector v2) {
-    coord = v2;
-}
-void Circle::setCoord(double x, double y) {
-    coord = Vector(x, y);
-}
+void Circle::setCoord(Vector v2) { coord = v2; }
+void Circle::setCoord(double x, double y) { coord = Vector(x, y); }
 void Circle::setRadius(double radius){
     if (radius < 0.0)
         return;
     Circle::radius = radius;
 }
-void Circle::setCenterY(double y) {
-    coord.setY(y);
-}
+void Circle::setCenterY(double y) { coord.setY(y); }
 
-void Circle::setCenterX(double x) {
-    coord.setX(x);
-}
+void Circle::setCenterX(double x) { coord.setX(x); }
 
 void Circle::translate(double x, double y){
     double moveX = getCenterX() + x;
     double moveY = getCenterY() + y;
-    if ((moveX - radius) >= 0.0 and (moveX + radius) <= window_width) 
+    if ((moveX - radius) >= 0.0 && (moveX + radius) <= window_width) 
         coord.setX(moveX);
-    if ((moveY - radius) >= 0.0 and (moveY + radius) <= window_height) 
+    if ((moveY - radius) >= 0.0 && (moveY + radius) <= window_height) 
         coord.setY(moveY);
 }
 bool Circle::checkCircleCollision(Circle c2) {
@@ -65,8 +57,8 @@ bool Circle::checkRectCollision(Rectangle rect){
 double Circle::getCenterX() const { return coord.getX(); }
 double Circle::getCenterY() const { return coord.getY(); }
 double Circle::getRadius() const { return radius; }
-double Circle::getWindowHeight() { return window_height; }
-double Circle::getWindowWidth() { return window_width; }
+double Circle::getWindowHeight() const { return window_height; }
+double Circle::getWindowWidth() const { return window_width; }
 
 void Circle::handleCollision(Circle &c2) {
 
@@ -87,4 +79,8 @@ void Circle::handleCollision(Circle &c2) {
     setCoord(getCenterX() + moveX, getCenterY() + moveY);
     c2.setCoord(c2.getCenterX() - moveX, c2.getCenterY() - moveY);
 
+}
+
+Vector Circle::getCoord() const {
+    return coord;
 }

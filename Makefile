@@ -1,15 +1,15 @@
 CXX = g++   #compilador c++
 CXXFLAGS = -Wall -I/usr/include/SDL # flags de compilação, -Wall (habilitar warnings), 
 # -I/usr/include/SDL2 especifica onde encontrar os cabeçalhos da SDL2.
-LIBS = -lSDL2 # Bibliotecas 
+LIBS = -lSDL2 -lSDL2_ttf # Bibliotecas 
 EXECUTABLES = main # oq vai ser chamado quando chamar só o make
 
 # regra: dependências
 #    comandos a serem executados para compilar o código
 all: $(EXECUTABLES)
 
-main: main.cpp circle.cpp rectangle.cpp window.cpp player.cpp vector.cpp ball.cpp
-	$(CXX) $(CXXFLAGS) -o main.o main.cpp circle.cpp rectangle.cpp window.cpp player.cpp vector.cpp ball.cpp $(LIBS)
+main: main.cpp circle.cpp rectangle.cpp window.cpp player.cpp vector.cpp ball.cpp game.cpp text.cpp
+	$(CXX) $(CXXFLAGS) -o main.o main.cpp circle.cpp rectangle.cpp window.cpp player.cpp vector.cpp ball.cpp  game.cpp text.cpp $(LIBS)
 
 # remove o arquivo executável gerado
 clean:

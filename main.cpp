@@ -7,7 +7,8 @@
 #include "player.h"
 #include "ball.h"
 #include "vector.h"
-
+#include "game.h"
+#include "text.h"
 
 int main(int argc, char const *argv[])
 {
@@ -18,20 +19,18 @@ int main(int argc, char const *argv[])
         return 1;
     }
 
-    // criar janela (titulo, posicaoQueAJanelaVaiAbrirX, posicaoQueAJanelaVaiAbrirY,
-    // larguraJanela, alturaJanela, flags)
+    // criar janela (titulo, largura, altura)
     Window w = Window("Jogo", 1000.0, 600.0);
     SDL_Renderer* renderer = w.getRenderer();
     double w_h = w.getHeight();
     double w_w = w.getWidth();
 
     // jogo rodando (janela aberta)
-    bool running = true;
+    Game game = Game(true);
 
     // rede
     Rectangle net = Rectangle(490.0, 300.0, 20.0, 300.0);
     Rectangle entireNetSpace = Rectangle(490.0, 0.0, 20.0, 600.0);
-
 
     // Posição inicial players
     double radius = 50.0;
@@ -41,50 +40,33 @@ int main(int argc, char const *argv[])
     Player player2(inicialPositionP2, radius, "Player 2", w_h, w_w);
 
     // bola
-    Vector inicialPositionBall = Vector((w_w - net.getWidth()) / 4, w_h - radius*2 - 200);
-    Ball ball = Ball(inicialPositionBall, 30.0, w_h, w_w);
+    Ball ball = Ball(true, 30.0, w_h, w_w);
+
+    SDL_Color azul;
+    azul.a = 255;
+    azul.b = 255;
+    
+    // textos
+    Text textP1 = Text("Player 1", renderer, "fonts/arial.ttf", azul, 50, 90.0, 40.0, 50.0, 20.0);
+    Text textP2 = Text("Player 2", renderer, "fonts/arial.ttf", azul, 50, 90.0, 40.0, 860.0, 20.0);
+    
+    std::string pointsP1 = std::to_string(player1.getPoints());
+    std::string pointsP2 = std::to_string(player2.getPoints());
+    std::string textPlacar = pointsP1 + "  X  " + pointsP2;
+    std::cout << player1.getPoints() << std::endl;
+    std::cout << textPlacar << std::endl;
+    Text placar = Text(textPlacar, renderer, "fonts/arial_bold.ttf", azul, 50, 120.0, 60.0, 440.0, 20.0);
 
     // loop principal que mantém a janela aberta e processa eventos
     // a var running é usada para controlar quando a janela deve ser fechada
-    while(running) {
+    while(game.getRunning()) {
 
         // define um evento
         SDL_Event event;
         // processa o evento ("Se houver um evento")
         while (SDL_PollEvent(&event) != 0)
         {
-            // verifica se a janela é pra ser fechada
-            if (event.type == SDL_QUIT)
-                running = false;
-            if(event.type == SDL_KEYDOWN)
-                {       
-                    // if's to select the action to be executed
-                    if (event.key.keysym.sym == SDLK_LEFT) {
-                        if (!player2.checkRectCollision(entireNetSpace))
-                            player2.translate(-5, 0.0);
-                    }
-                    if (event.key.keysym.sym == SDLK_RIGHT)
-                        player2.translate(5.0, 0.0);
-                    if (event.key.keysym.sym == SDLK_UP)
-                        player2.jump();
-                        
-                    /*if (event.key.keysym.sym == SDLK_DOWN)
-                        player2.translate(0.0, 5.0);*/
-                    if (event.key.keysym.sym == SDLK_w)
-                        player1.jump();
-                    if (event.key.keysym.sym == SDLK_a)
-                        player1.translate(-5.0, 0.0);
-                    /*if (event.key.keysym.sym == SDLK_s)
-                        player1.translate(0.0, 5.0);*/
-                    if (event.key.keysym.sym == SDLK_d) {
-                        if (!player1.checkRectCollision(entireNetSpace))
-                            player1.translate(5.0, 0.0);
-                    }
-                    // pressing q will exit the main loop
-                    if (event.key.keysym.sym == SDLK_q)
-                        running = false;
-                }
-
+           game.handleInput(event, player1, player2, entireNetSpace);
         }
     
         // Limpe a tela com a cor desejada, por exemplo, preto
@@ -102,11 +84,13 @@ int main(int argc, char const *argv[])
         SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
         ball.draw(renderer);   
 
-        std::cout <<  "antes do draw" << player1.getCenterX() << std::endl;
         SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
         player1.draw(renderer);
         player2.draw(renderer);
-        std::cout <<  "depois do draw" << player1.getCenterX() << std::endl;
+
+        textP1.draw();
+        textP2.draw();
+        placar.draw();
 
         // Atualize a tela
         SDL_RenderPresent(renderer);
