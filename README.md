@@ -24,7 +24,7 @@ Este é um projeto de exemplo que utiliza C++ e a biblioteca SDL para criar um j
 ## Instruções de Compilação
 1. Navegue até a pasta do projeto:
     ```sh
-    cd Blobby Volley
+    cd Volley2D
     ```
 2. Compile o projeto:
     ```sh
