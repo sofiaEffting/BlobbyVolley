@@ -28,6 +28,7 @@ public:
     double getY() const;
     int getFontSize() const;
     void setFontSize(int fontSize);
+    void updateText(const int p1Points, const int p2Points);
     
 
 private:

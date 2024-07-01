@@ -26,6 +26,8 @@ public:
     bool checkRectCollision(Rectangle rect);
     bool checkCircleCollision(Circle c2);
     void handleCollision(Circle &c2);
+    double calcDistanceToRect(Rectangle rect);
+    bool leftWindow();
 
 private:
     double radius;

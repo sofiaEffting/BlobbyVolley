@@ -7,10 +7,10 @@ class Rectangle {
 public:
     Rectangle(double x, double y, double width, double height);
     void draw(SDL_Renderer *renderer) const;
-    double getWidth();
-    double getHeight();
-    double getX();
-    double getY();
+    double getWidth() const;
+    double getHeight() const;
+    double getX() const;
+    double getY() const;
 
 private:
     double x;

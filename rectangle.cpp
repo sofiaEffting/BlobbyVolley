@@ -12,18 +12,18 @@ void Rectangle::draw(SDL_Renderer *renderer) const {
     SDL_RenderFillRect(renderer, &rectangle);
 }
 
-double Rectangle::getHeight() {
+double Rectangle::getHeight() const{
     return height;
 }
 
-double Rectangle::getWidth() {
+double Rectangle::getWidth() const{
     return width;
 }
 
-double Rectangle::getX() {
+double Rectangle::getX() const{
     return x;
 }
 
-double Rectangle::getY() {
+double Rectangle::getY() const{
     return y;
 }

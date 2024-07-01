@@ -19,6 +19,8 @@ public:
     void updateVelocity();
     void draw(SDL_Renderer *renderer);
     double getVelocity();
+    void setVelocity(double velocity);
+    void translate(double x, double y, Rectangle entireNetSpace);
 
 private:
     int points;

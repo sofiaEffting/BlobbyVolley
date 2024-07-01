@@ -91,3 +91,15 @@ double Text::getY() const {
 void Text::setY(double y) {
     Text::y = y;
 }
+
+void Text::updateText(const int p1Points, const int p2Points) {
+    text = std::to_string(p1Points) + " X " + std::to_string(p2Points);
+
+    SDL_Surface* surface = TTF_RenderText_Blended(font, text.c_str(), textColor);
+    texture = SDL_CreateTextureFromSurface(renderer, surface);
+    SDL_FreeSurface(surface);
+    if (!texture) {
+        SDL_DestroyTexture(texture);
+        std::cerr << "Erro ao criar textura " << TTF_GetError() << std::endl;
+    }
+}
