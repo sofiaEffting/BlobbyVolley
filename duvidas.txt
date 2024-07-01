@@ -1,5 +1,0 @@
-pra que colocar o ifndef e o define?
-
-como eu sei quais são as dependências dos meus arquivos
-
-qual a vantagem de setar os valores no construtor antes de corpo dele
