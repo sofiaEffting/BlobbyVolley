@@ -1,29 +1,37 @@
 #include "rectangle.h"
 
-Rectangle::Rectangle(double x, double y, double width, double height): 
-    x(x), y(y), width(width), height(height) {}
+// Construtor da classe Rectangle que inicializa as coordenadas (x, y) e as dimensões (largura e altura)
+Rectangle::Rectangle(double x, double y, double width, double height)
+    : x(x), y(y), width(width), height(height) {}
 
+// Método para desenhar o retângulo na tela usando o SDL_Renderer
 void Rectangle::draw(SDL_Renderer *renderer) const {
+    // Cria uma estrutura SDL_Rect com as coordenadas e dimensões do retângulo
     SDL_Rect rectangle;
     rectangle.x = x;
     rectangle.y = y;
     rectangle.w = width;
     rectangle.h = height;
+    // Preenche o retângulo na tela com a cor definida no renderer
     SDL_RenderFillRect(renderer, &rectangle);
 }
 
-double Rectangle::getHeight() const{
+// Retorna a altura do retângulo
+double Rectangle::getHeight() const {
     return height;
 }
 
-double Rectangle::getWidth() const{
+// Retorna a largura do retângulo
+double Rectangle::getWidth() const {
     return width;
 }
 
-double Rectangle::getX() const{
+// Retorna a coordenada X do retângulo
+double Rectangle::getX() const {
     return x;
 }
 
-double Rectangle::getY() const{
+// Retorna a coordenada Y do retângulo
+double Rectangle::getY() const {
     return y;
 }
