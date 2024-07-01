@@ -8,21 +8,9 @@ EXECUTABLES = main # oq vai ser chamado quando chamar só o make
 #    comandos a serem executados para compilar o código
 all: $(EXECUTABLES)
 
-main: main.cpp circle.cpp rectangle.cpp window.cpp player.cpp vector.cpp ball.cpp game.cpp text.cpp
-	$(CXX) $(CXXFLAGS) -o main.o main.cpp circle.cpp rectangle.cpp window.cpp player.cpp vector.cpp ball.cpp  game.cpp text.cpp $(LIBS)
+main: src/main.cpp src/circle.cpp src/rectangle.cpp src/window.cpp src/player.cpp src/vector.cpp src/ball.cpp src/game.cpp src/text.cpp
+	$(CXX) $(CXXFLAGS) -o volley.o src/main.cpp src/circle.cpp src/rectangle.cpp src/window.cpp src/player.cpp src/vector.cpp src/ball.cpp src/game.cpp src/text.cpp $(LIBS)
 
 # remove o arquivo executável gerado
 clean:
 	rm -f main
-
-# COMO RODAR UM ARQ
-# ./nome_arq
-
-# ERROS:
-# "faltando o separador" ocorre quando a formatação do arquivo não está correta.
-
-# COMO SABER AS FLAGS
-# pkg-config sdl2 --cflags
-# pkg-config --list-all
-#  COMO SABER AS LIBS
-# pkg-config sdl2 --libs
