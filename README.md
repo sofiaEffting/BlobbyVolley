@@ -6,7 +6,7 @@ Este é um projeto de exemplo que utiliza C++ e a biblioteca SDL para criar um j
 ## Requisitos
 - SDL2
 - SDL2_ttf
-- Compilador C++ (g++, clang++, etc.)
+- Compilador C++ (g++)
 
 ## Instruções de Configuração
 
