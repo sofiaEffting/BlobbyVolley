@@ -34,7 +34,7 @@ Este é um projeto de exemplo que utiliza C++ e a biblioteca SDL para criar um j
 ## Instruções de Execução
 1. Execute o programa:
     ```sh
-    ./meu_projeto
+    ./volley.o
     ```
 
 ## Instruções de Jogo
